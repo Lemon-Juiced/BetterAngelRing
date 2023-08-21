@@ -2,6 +2,7 @@ package lemon_juice.better_angel_ring;
 
 import lemon_juice.better_angel_ring.creativetab.ModCreativeTab;
 import lemon_juice.better_angel_ring.item.ModItems;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.server.ServerStartingEvent;
@@ -42,8 +43,8 @@ public class BetterAngelRing {
 
     //InterModQueue For Curios
     private void enqueueIMC(InterModEnqueueEvent event) {
-        // Adds 1 "RING" Slot
-        InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.RING.getMessageBuilder().size(1).build());
+        // Creates 1 "angel_ring" Slots
+        InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("angel_ring").icon(new ResourceLocation(BetterAngelRing.MOD_ID, "slot/empty_angel_ring_slot")).build());
     }
 
     @SubscribeEvent
