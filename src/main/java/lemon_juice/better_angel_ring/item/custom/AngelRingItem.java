@@ -79,6 +79,16 @@ public class AngelRingItem extends Item {
             }
 
             @Override
+            public void curioTick(String identifier, int index, LivingEntity livingEntity) {
+                if (livingEntity instanceof Player) {
+                    Player player = ((Player) livingEntity);
+                    if (!player.getAbilities().mayfly) {
+                        startFlight(player);
+                    }
+                }
+            }
+
+            @Override
             public boolean canEquip(String identifier, LivingEntity livingEntity) {
                 return !CuriosApi.getCuriosHelper().findEquippedCurio(ModItems.ANGEL_RING.get(), livingEntity).isPresent();
             }
