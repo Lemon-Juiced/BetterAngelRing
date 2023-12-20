@@ -1,42 +1,38 @@
 package lemon_juice.better_angel_ring;
 
-import lemon_juice.better_angel_ring.creativetab.ModCreativeTab;
-import lemon_juice.better_angel_ring.item.ModItems;
+import lemon_juice.better_angel_ring.creativetab.BetterAngelRingCreativeTab;
+import lemon_juice.better_angel_ring.item.BetterAngelRingItems;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.server.ServerStartingEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.InterModComms;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.InterModComms;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.fml.event.lifecycle.InterModEnqueueEvent;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import top.theillusivec4.curios.api.SlotTypeMessage;
-import top.theillusivec4.curios.api.SlotTypePreset;
 
 @Mod(BetterAngelRing.MOD_ID)
 public class BetterAngelRing {
     public static final String MOD_ID = "better_angel_ring";
 
-    public BetterAngelRing() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+    public BetterAngelRing(IEventBus modEventBus) {
+        modEventBus.addListener(this::commonSetup);
 
         // Register Items & Blocks
-        ModItems.register(modEventBus);
+        BetterAngelRingItems.register(modEventBus);
 
         // Register Creative Tab
-        ModCreativeTab.register(modEventBus);
-        modEventBus.addListener(ModCreativeTab::registerTabs);
-
-        modEventBus.addListener(this::commonSetup);
+        BetterAngelRingCreativeTab.register(modEventBus);
+        modEventBus.addListener(BetterAngelRingCreativeTab::registerTabs);
 
         // Registers enqueueIMC (Curios)
         modEventBus.addListener(this::enqueueIMC);
 
-        MinecraftForge.EVENT_BUS.register(this);
+        NeoForge.EVENT_BUS.register(this);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {}
